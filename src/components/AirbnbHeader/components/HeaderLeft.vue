@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import LogoIcon from '@/icons/logo-icon.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 </script>
 
 <template>
   <div class="left-page">
-    <logo-icon />
+    <logo-icon @click="() => router.push('/home')" />
   </div>
 </template>
 
@@ -12,6 +15,7 @@ import LogoIcon from '@/icons/logo-icon.vue'
 .left-page {
   flex: 1;
   svg {
+    cursor: pointer;
     color: var(--bnb-primary);
   }
 }

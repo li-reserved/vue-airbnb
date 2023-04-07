@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { onMounted, computed } from 'vue'
 import HomeBanner from './components/HomeBanner.vue'
-import { homeStore } from '@/store/modules/home'
+import { useHomeStore } from '@/store/modules/home'
 import HomeSectionV1 from './components/HomeSectionV1.vue'
 import HomeSectionV2 from './components/HomeSectionV2.vue'
 import HomeSectionV3 from './components/HomeSectionV3.vue'
 import HomeLongfor from './components/HomeLongfor.vue'
 
-const store = homeStore()
+const store = useHomeStore()
 
 onMounted(async () => {
   store.allFeatAction()

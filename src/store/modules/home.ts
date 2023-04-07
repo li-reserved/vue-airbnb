@@ -10,7 +10,7 @@ import {
   getHomePlusDataApi
 } from '@/api/home'
 
-export const homeStore = defineStore('home', () => {
+export const useHomeStore = defineStore('home', () => {
   const goodPrice = ref<GoodPrice>()
   const highscore = ref<GoodPrice>()
   const discount = ref<Discount>()
