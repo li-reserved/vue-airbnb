@@ -9,10 +9,7 @@ const roomList = computed(() => store.roomList)
 
 const currentchangeHandle = (value: number) => {
   store.setCurrentPage(value - 1)
-  window.scrollTo({
-    behavior: 'smooth',
-    top: 0
-  })
+  window.scrollTo(0, 0)
 }
 </script>
 

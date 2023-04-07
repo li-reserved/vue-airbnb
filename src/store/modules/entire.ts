@@ -7,10 +7,13 @@ export const useEntireStore = defineStore('entire', () => {
   const currentPage = ref(0)
   const roomList = ref<EntireItem[]>()
   const totalcount = ref(0)
+  const isloading = ref(false)
 
-  const setCurrentPage = (page: number) => {
+  const setCurrentPage = async (page: number) => {
     currentPage.value = page
-    fetchRoomListAction()
+    isloading.value = true
+    await fetchRoomListAction()
+    isloading.value = false
   }
 
   const fetchRoomListAction = async () => {
@@ -23,6 +26,7 @@ export const useEntireStore = defineStore('entire', () => {
     currentPage,
     roomList,
     totalcount,
+    isloading,
     setCurrentPage,
     fetchRoomListAction
   }

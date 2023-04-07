@@ -6,6 +6,6 @@ export type EntireList = {
 }
 
 export type EntireItem = PriceItem & {
-  picture_urls: string[]
+  picture_urls?: string[]
   _id: string
 }

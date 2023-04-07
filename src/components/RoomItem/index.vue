@@ -1,26 +1,45 @@
 <script setup lang="ts">
-import type { PriceItem } from '@/types/home'
+import type { EntireItem } from '@/types/entire'
 import { computed } from 'vue'
-// import { useVMdel } from '@/composable/index'
+import ArrowLeftIcon from '@/icons/arrow-left-icon.vue'
+import ArrowRightIcon from '@/icons/arrow-right-icon.vue'
 const { itemData, itemWidth = 25 } = defineProps<{
-  itemData: PriceItem
+  itemData: EntireItem
   itemWidth?: number
 }>()
 
-// const emit = defineEmits<{
-//   (e: 'update:itemData', v: object): void
-// }>()
-
-// const itemData = useVMdel(props, 'itemData', emit)
 const star = computed(() => itemData.star_rating || 4.5)
 </script>
 
 <template>
   <div class="room-page" :style="{ width: `${itemWidth}%` }">
     <div class="inner">
-      <div class="cover">
+      <!-- <div class="cover">
         <img :src="itemData.picture_url" alt="" />
+      </div> -->
+      <div class="swiper">
+        <div class="control">
+          <div class="btn left">
+            <ArrowLeftIcon :width="30" :height="30" />
+          </div>
+          <div class="btn right">
+            <ArrowRightIcon :width="30" :height="30" />
+          </div>
+        </div>
+        <div class="indicator">
+          <el-carousel
+            height="100%"
+            :autoplay="false"
+            arrow="never"
+            indicator-position="none"
+          >
+            <el-carousel-item v-for="item in itemData.picture_urls" :key="item">
+              <img :src="item" alt="" />
+            </el-carousel-item>
+          </el-carousel>
+        </div>
       </div>
+
       <div
         class="desc"
         :style="{ color: itemData.verify_info.text_color || '#39576a' }"
@@ -48,8 +67,79 @@ const star = computed(() => itemData.star_rating || 4.5)
   // width: 25%;
   padding: 8px;
   margin: 8px 0;
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
   .inner {
     width: 100%;
+    .swiper {
+      position: relative;
+      cursor: pointer;
+      box-sizing: border-box;
+      padding: 66.66% 8px 0;
+      border-radius: 3px;
+      overflow: hidden;
+      &:hover {
+        .control {
+          display: flex;
+        }
+      }
+
+      .control {
+        position: absolute;
+        z-index: 11;
+        color: #fff;
+        inset: 0;
+        display: none;
+        justify-content: space-between;
+        .btn {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 83px;
+          height: 100%;
+          background: linear-gradient(
+            to left,
+            transparent 0%,
+            rgba(0, 0, 0, 0.25) 100%
+          );
+          &.right {
+            background: linear-gradient(
+              to right,
+              transparent 0%,
+              rgba(0, 0, 0, 0.25) 100%
+            );
+          }
+        }
+      }
+      .indicator {
+        position: absolute;
+        // width: 30%;
+        height: 100%;
+        z-index: 9;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  ::v-deep() {
+    .el-carousel {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    svg {
+      width: 18px;
+      height: 18px;
+    }
   }
 
   .cover {
@@ -58,14 +148,6 @@ const star = computed(() => itemData.star_rating || 4.5)
     padding: 66.66% 8px 0;
     border-radius: 3px;
     overflow: hidden;
-
-    img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
   }
 
   .desc {

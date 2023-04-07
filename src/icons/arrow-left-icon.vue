@@ -1,4 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { width = 20, height = 20 } = defineProps<{
+  width?: number
+  height?: number
+}>()
+</script>
 
 <template>
   <svg
@@ -7,15 +12,15 @@
     aria-hidden="true"
     role="presentation"
     focusable="false"
-    style="
-      display: block;
-      fill: none;
-      height: 12px;
-      width: 12px;
-      stroke: currentcolor;
-      stroke-width: 5.33333;
-      overflow: visible;
-    "
+    :style="{
+      display: 'block',
+      fill: 'none',
+      height: `${height}px`,
+      width: `${width}px`,
+      strokeWidth: '5.33333',
+      overflow: 'visible'
+    }"
+    style="stroke: currentColor"
   >
     <g fill="none">
       <path
