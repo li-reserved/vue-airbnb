@@ -1,0 +1,33 @@
+:root {
+    --bnb-primary: #ff385c;
+    --bnb-secondary: #00848a;
+    --bnb-text1: #222;
+    --bnb-text2: #484848;
+    --bnb-text3: #333;
+    --bnb-shadow: rgba(0, 0, 0, 0.1) 0px 2px 1px;
+    --bnb-hover: 0 2px 4px rgba(0, 0, 0, 0.18);
+}
+
+body {
+    font-size: 14px;
+    color: var(--bnb-text2);
+    font-family: 'Circular', 'PingFang-SC', "Hiragino Sans GB", '微软雅黑', "Microsoft YaHei", "Heiti SC" !important;
+    ;
+}
+
+a {
+    color: var(--cp-text2);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+}
