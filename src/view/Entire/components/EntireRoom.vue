@@ -1,11 +1,21 @@
 <script setup lang="ts">
-import { useEntireStore } from '@/store/modules/entire'
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+import type { EntireItem } from '@/types/entire'
+import { useEntireStore } from '@/store/modules/entire'
+import { useDetailStore } from '@/store/modules/detail'
 
 const store = useEntireStore()
+const detailStore = useDetailStore()
 const roolList = computed(() => store.roomList)
 const total = computed(() => store.totalcount)
 const isloading = computed(() => store.isloading)
+
+const router = useRouter()
+function itemclick(value: EntireItem) {
+  detailStore.setDetail(value)
+  router.push('/detail')
+}
 </script>
 
 <template>
@@ -17,6 +27,7 @@ const isloading = computed(() => store.isloading)
         :key="item._id"
         :item-data="item"
         :item-width="20"
+        @itemclick="itemclick"
       />
     </div>
     <div class="cover" v-if="isloading"></div>

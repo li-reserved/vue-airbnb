@@ -31,7 +31,7 @@ watch(
 </script>
 
 <template>
-  <div class="indicator">
+  <div class="indicator-page">
     <div class="indicator-slot" ref="slotRef">
       <slot />
     </div>
@@ -39,9 +39,9 @@ watch(
 </template>
 
 <style lang="scss" scoped>
-.indicator {
+.indicator-page {
   overflow: hidden;
-  &-slot {
+  .indicator-slot {
     display: flex;
     position: relative;
     transition: transform 250ms ease;

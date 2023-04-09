@@ -1,29 +1,44 @@
 <script setup lang="ts">
-import type { EntireItem } from '@/types/entire'
 import { computed, ref } from 'vue'
+import type { EntireItem } from '@/types/entire'
 import ArrowLeftIcon from '@/icons/arrow-left-icon.vue'
 import ArrowRightIcon from '@/icons/arrow-right-icon.vue'
 
 const elRef = ref()
+const selectIndex = ref(0)
 const { itemData, itemWidth = 25 } = defineProps<{
   itemData: EntireItem
   itemWidth?: number
+}>()
+
+const emit = defineEmits<{
+  (e: 'itemclick', v: EntireItem): void
 }>()
 
 const star = computed(() => itemData.star_rating || 4.5)
 
 function controlckickHandle(isright: boolean) {
   isright ? elRef.value.next() : elRef.value.prev()
+  let newindex = selectIndex.value
+  isright ? (newindex += 1) : (newindex -= 1)
+  const length = itemData.picture_urls!.length - 1
+  if (newindex < 0) newindex = length
+  if (newindex > length) newindex = 0
+  selectIndex.value = newindex
 }
 </script>
 
 <template>
-  <div class="room-page" :style="{ width: `${itemWidth}%` }">
+  <div
+    class="room-page"
+    :style="{ width: `${itemWidth}%` }"
+    @click="emit('itemclick', itemData)"
+  >
     <div class="inner">
-      <!-- <div class="cover">
+      <div class="cover" v-if="!itemData.picture_urls">
         <img :src="itemData.picture_url" alt="" />
-      </div> -->
-      <div class="swiper cover">
+      </div>
+      <div class="swiper cover" v-else>
         <div class="control">
           <div class="btn left" @click="() => controlckickHandle(false)">
             <ArrowLeftIcon :width="30" :height="30" />
@@ -31,6 +46,17 @@ function controlckickHandle(isright: boolean) {
           <div class="btn right" @click="() => controlckickHandle(true)">
             <ArrowRightIcon :width="30" :height="30" />
           </div>
+        </div>
+        <div class="indicator">
+          <Indicator :select-index="selectIndex">
+            <div
+              class="dot-item"
+              v-for="(item, i) in itemData.picture_urls"
+              :key="i"
+            >
+              <span :class="[{ active: i === selectIndex }, 'dot']"></span>
+            </div>
+          </Indicator>
         </div>
         <el-carousel
           height="100%"
@@ -114,6 +140,31 @@ function controlckickHandle(isright: boolean) {
               transparent 0%,
               rgba(0, 0, 0, 0.25) 100%
             );
+          }
+        }
+      }
+      .indicator {
+        position: absolute;
+        bottom: 10px;
+        width: 30%;
+        z-index: 9;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        .dot-item {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 20%;
+          .dot {
+            width: 6px;
+            height: 6px;
+            background-color: #fff;
+            border-radius: 50%;
+            &.active {
+              width: 8px;
+              height: 8px;
+            }
           }
         }
       }
