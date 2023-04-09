@@ -19,6 +19,10 @@ const router = createRouter({
         {
           path: '/entire',
           component: () => import('@/view/Entire/index.vue')
+        },
+        {
+          path: '/demo',
+          component: () => import('@/view/Demo/index.vue')
         }
       ]
     }

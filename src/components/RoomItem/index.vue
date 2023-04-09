@@ -1,14 +1,20 @@
 <script setup lang="ts">
 import type { EntireItem } from '@/types/entire'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import ArrowLeftIcon from '@/icons/arrow-left-icon.vue'
 import ArrowRightIcon from '@/icons/arrow-right-icon.vue'
+
+const elRef = ref()
 const { itemData, itemWidth = 25 } = defineProps<{
   itemData: EntireItem
   itemWidth?: number
 }>()
 
 const star = computed(() => itemData.star_rating || 4.5)
+
+function controlckickHandle(isright: boolean) {
+  isright ? elRef.value.next() : elRef.value.prev()
+}
 </script>
 
 <template>
@@ -17,27 +23,26 @@ const star = computed(() => itemData.star_rating || 4.5)
       <!-- <div class="cover">
         <img :src="itemData.picture_url" alt="" />
       </div> -->
-      <div class="swiper">
+      <div class="swiper cover">
         <div class="control">
-          <div class="btn left">
+          <div class="btn left" @click="() => controlckickHandle(false)">
             <ArrowLeftIcon :width="30" :height="30" />
           </div>
-          <div class="btn right">
+          <div class="btn right" @click="() => controlckickHandle(true)">
             <ArrowRightIcon :width="30" :height="30" />
           </div>
         </div>
-        <div class="indicator">
-          <el-carousel
-            height="100%"
-            :autoplay="false"
-            arrow="never"
-            indicator-position="none"
-          >
-            <el-carousel-item v-for="item in itemData.picture_urls" :key="item">
-              <img :src="item" alt="" />
-            </el-carousel-item>
-          </el-carousel>
-        </div>
+        <el-carousel
+          height="100%"
+          ref="elRef"
+          :autoplay="false"
+          arrow="never"
+          indicator-position="none"
+        >
+          <el-carousel-item v-for="item in itemData.picture_urls" :key="item">
+            <img :src="item" alt="" />
+          </el-carousel-item>
+        </el-carousel>
       </div>
 
       <div
@@ -79,10 +84,6 @@ const star = computed(() => itemData.star_rating || 4.5)
     .swiper {
       position: relative;
       cursor: pointer;
-      box-sizing: border-box;
-      padding: 66.66% 8px 0;
-      border-radius: 3px;
-      overflow: hidden;
       &:hover {
         .control {
           display: flex;
@@ -115,16 +116,6 @@ const star = computed(() => itemData.star_rating || 4.5)
             );
           }
         }
-      }
-      .indicator {
-        position: absolute;
-        // width: 30%;
-        height: 100%;
-        z-index: 9;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        margin: 0 auto;
       }
     }
   }

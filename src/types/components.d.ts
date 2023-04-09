@@ -6,6 +6,7 @@ import type SectionTabs from '@/components/SectionTabs/index.vue'
 import type SectionFooter from '@/components/SectionFooter/index.vue'
 import type ScrollView from '@/components/ScrollView/index.vue'
 import type LongforItem from '@/components/LongforItem/index.vue'
+import type Indicator from '@/components/Indicator/index.vue'
 
 declare module 'vue' {
   interface GlobalComponents {
@@ -17,5 +18,6 @@ declare module 'vue' {
     SectionFooter: typeof SectionFooter
     ScrollView: typeof ScrollView
     LongforItem: typeof LongforItem
+    Indicator: typeof Indicator
   }
 }
