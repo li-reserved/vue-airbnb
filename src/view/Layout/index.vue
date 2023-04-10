@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <app-title v-if="ishome" />
+    <app-title v-if="route.meta.apptitle" />
     <airbnb-header />
     <router-view></router-view>
     <div class="footer">广告招租</div>
@@ -8,12 +8,10 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import AppTitle from './AppTitle.vue'
-import { ref } from 'vue'
 
-const router = useRouter()
-const ishome = ref(router.currentRoute.value.fullPath !== '/home')
+const route = useRoute()
 </script>
 
 <style lang="scss" scoped>

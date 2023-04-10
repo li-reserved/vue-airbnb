@@ -1,6 +1,8 @@
 <template>
   <div class="air-header">
-    <div class="content" :class="[{ fixed: y >= (ishome ? 0 : 59) }]">
+    <div
+      :class="[route.meta.apptitle ? { fixed: y >= 59 } : 'fixed', 'content']"
+    >
       <header-left />
       <header-content />
       <header-right />
@@ -13,13 +15,10 @@ import HeaderLeft from './components/HeaderLeft.vue'
 import HeaderContent from './components/HeaderContent.vue'
 import HeaderRight from './components/HeaderRight.vue'
 import { useWindowScroll } from '@/composable/index'
-import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 const { y } = useWindowScroll()
-const router = useRouter()
-
-const ishome = router.currentRoute.value.fullPath === '/home'
-console.log(ishome)
 </script>
 
 <style lang="scss" scoped>
