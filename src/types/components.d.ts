@@ -7,6 +7,7 @@ import type SectionFooter from '@/components/SectionFooter/index.vue'
 import type ScrollView from '@/components/ScrollView/index.vue'
 import type LongforItem from '@/components/LongforItem/index.vue'
 import type Indicator from '@/components/Indicator/index.vue'
+import type PictureBrowser from '@/components/PictureBrowser/index.vue'
 
 declare module 'vue' {
   interface GlobalComponents {
@@ -19,5 +20,6 @@ declare module 'vue' {
     ScrollView: typeof ScrollView
     LongforItem: typeof LongforItem
     Indicator: typeof Indicator
+    PictureBrowser: typeof PictureBrowser
   }
 }

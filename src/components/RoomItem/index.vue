@@ -15,9 +15,13 @@ const emit = defineEmits<{
   (e: 'itemclick', v: EntireItem): void
 }>()
 
+function gotoDetail() {
+  emit('itemclick', itemData)
+}
+
 const star = computed(() => itemData.star_rating || 4.5)
 
-function controlckickHandle(isright: boolean) {
+function controlckickHandle(isright: boolean, event: Event) {
   isright ? elRef.value.next() : elRef.value.prev()
   let newindex = selectIndex.value
   isright ? (newindex += 1) : (newindex -= 1)
@@ -25,6 +29,7 @@ function controlckickHandle(isright: boolean) {
   if (newindex < 0) newindex = length
   if (newindex > length) newindex = 0
   selectIndex.value = newindex
+  event.stopPropagation()
 }
 </script>
 
@@ -32,7 +37,7 @@ function controlckickHandle(isright: boolean) {
   <div
     class="room-page"
     :style="{ width: `${itemWidth}%` }"
-    @click="emit('itemclick', itemData)"
+    @click="gotoDetail"
   >
     <div class="inner">
       <div class="cover" v-if="!itemData.picture_urls">
@@ -40,10 +45,10 @@ function controlckickHandle(isright: boolean) {
       </div>
       <div class="swiper cover" v-else>
         <div class="control">
-          <div class="btn left" @click="() => controlckickHandle(false)">
+          <div class="btn left" @click="(e) => controlckickHandle(false, e)">
             <ArrowLeftIcon :width="30" :height="30" />
           </div>
-          <div class="btn right" @click="() => controlckickHandle(true)">
+          <div class="btn right" @click="(e) => controlckickHandle(true, e)">
             <ArrowRightIcon :width="30" :height="30" />
           </div>
         </div>
