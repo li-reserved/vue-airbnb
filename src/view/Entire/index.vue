@@ -1,5 +1,6 @@
 <template>
   <div class="entire-page">
+    <entire-title />
     <entire-filter />
     <entire-room />
     <entire-pagination />
@@ -8,6 +9,7 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
+import EntireTitle from './components/EntireTitle.vue'
 import EntireFilter from './components/EntireFIlter.vue'
 import EntireRoom from './components/EntireRoom.vue'
 import EntirePagination from './components/EntirePagination.vue'

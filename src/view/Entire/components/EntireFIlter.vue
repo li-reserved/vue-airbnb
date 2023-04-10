@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import filterData from '@/assets/data/filyer_data.json'
+import { useWindowScroll } from '@/composable/index'
+
+const { y } = useWindowScroll()
 
 const current = ref<string[]>([''])
 function itemclickHandle(name: string) {
@@ -17,25 +20,42 @@ function itemclickHandle(name: string) {
 
 <template>
   <div class="filter-page">
-    <div
-      v-for="item in filterData"
-      :key="item"
-      :class="[{ active: current.includes(item) }, 'btn']"
-      @click="() => itemclickHandle(item)"
-    >
-      {{ item }}
+    <div class="content" :class="[{ fixed: y >= 210 }]">
+      <div
+        v-for="item in filterData"
+        :key="item"
+        :class="[{ active: current.includes(item) }, 'btn']"
+        @click="() => itemclickHandle(item)"
+      >
+        {{ item }}
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .filter-page {
-  display: flex;
-  align-items: center;
+  position: relative;
+  top: 0;
   height: 48px;
-  padding-left: 16px;
-  border-bottom: 1px solid #f2f2f2;
-  background-color: #fff;
+  > .content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    border-bottom: 1px solid #f2f2f2;
+    background-color: #fff;
+    &.fixed {
+      position: fixed;
+      top: 80px;
+      left: 0;
+      right: 0;
+      height: 48px;
+      z-index: 19;
+    }
+  }
+
   .btn {
     margin: 0 4px 0 8px;
     padding: 6px 12px;

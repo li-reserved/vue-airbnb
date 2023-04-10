@@ -33,12 +33,20 @@ const emit = defineEmits<{
   (e: 'update:showPic', v: boolean): void
 }>()
 
+function windowEventHandle(e: KeyboardEvent) {
+  if (e.key === 'Escape') {
+    emit('update:showPic', false)
+  }
+}
+
 onMounted(() => {
   document.body.style.overflow = 'hidden'
+  window.addEventListener('keydown', windowEventHandle)
 })
 
 onBeforeUnmount(() => {
   document.body.style.overflow = 'auto'
+  window.removeEventListener('keydown', windowEventHandle)
 })
 </script>
 
