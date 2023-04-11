@@ -38,6 +38,7 @@ function itemclick(value: EntireItem) {
 .entire-room {
   padding: 30px 80px;
   position: relative;
+  min-height: 1500px;
   .title {
     font-size: 22px;
     font-weight: 700;

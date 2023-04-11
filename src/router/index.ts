@@ -11,21 +11,27 @@ const router = createRouter({
         {
           path: '/home',
           meta: {
-            apptitle: false
+            isFixed: true,
+            apptitle: false,
+            topAlpha: true
           },
           component: () => import('@/view/Home/index.vue')
         },
         {
           path: '/detail',
           meta: {
-            apptitle: true
+            isFixed: false,
+            apptitle: false,
+            topAlpha: false
           },
           component: () => import('@/view/Detail/index.vue')
         },
         {
           path: '/entire',
           meta: {
-            apptitle: true
+            isFixed: false,
+            apptitle: true,
+            topAlpha: false
           },
           component: () => import('@/view/Entire/index.vue')
         },

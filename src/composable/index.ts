@@ -1,4 +1,5 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { throttle } from 'underscore'
 
 type Props = {
   [key: string]: object
@@ -31,10 +32,10 @@ export const useWindowScroll = () => {
   const x = ref(0)
   const y = ref(0)
 
-  function windowscroll() {
+  const windowscroll = throttle(() => {
     x.value = window.scrollX
     y.value = window.scrollY
-  }
+  }, 100)
 
   onMounted(() => {
     window.addEventListener('scroll', windowscroll)

@@ -119,6 +119,7 @@ onBeforeUnmount(() => {
   background-color: #333;
   display: flex;
   flex-direction: column;
+  z-index: 99;
   .top {
     position: relative;
     height: 86px;

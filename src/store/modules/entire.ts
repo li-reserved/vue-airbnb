@@ -11,13 +11,13 @@ export const useEntireStore = defineStore('entire', () => {
 
   const setCurrentPage = async (page: number) => {
     currentPage.value = page
-    isloading.value = true
     await fetchRoomListAction()
-    isloading.value = false
   }
 
   const fetchRoomListAction = async () => {
+    isloading.value = true
     const res = await getEntireRoomList(currentPage.value * 20)
+    isloading.value = false
     roomList.value = res.list
     totalcount.value = res.totalCount
   }
